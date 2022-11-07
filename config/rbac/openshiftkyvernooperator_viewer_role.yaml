@@ -1,0 +1,27 @@
+# permissions for end users to view openshiftkyvernooperators.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: openshiftkyvernooperator-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: openshift-kyverno-operator
+    app.kubernetes.io/part-of: openshift-kyverno-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: openshiftkyvernooperator-viewer-role
+rules:
+- apiGroups:
+  - operator.nirmata.io
+  resources:
+  - openshiftkyvernooperators
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - operator.nirmata.io
+  resources:
+  - openshiftkyvernooperators/status
+  verbs:
+  - get

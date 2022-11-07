@@ -1,0 +1,47 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: '[]'
+    capabilities: Full Lifecycle
+  name: openshift-kyverno-operator.v0.0.1
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions: {}
+  description: Openshift kyverno operator for "Nirmata Kyverno Enterprise" and "Kyverno Operator"
+  displayName: OpenShft Kyverno Operator
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      deployments: null
+    strategy: ""
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - kyverno
+  - operator
+  - policy
+  - monitor
+  - report
+  - nirmata
+  links:
+  - name: Openshift Kyverno Operator
+    url: https://kyverno.io
+  maintainers:
+  - email: support@nirmata.com
+    name: Nirmata
+  maturity: alpha
+  provider:
+    name: Nirmata
+    url: https://nirmata.com
+  version: 0.0.1

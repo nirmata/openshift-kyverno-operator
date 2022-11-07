@@ -1,0 +1,6 @@
+# Use the 'create api' subcommand to add watches to this file.
+- group: operator.nirmata.io
+  version: v1
+  kind: OpenshiftKyvernoOperator
+  chart: helm-charts/kyverno
+#+kubebuilder:scaffold:watch

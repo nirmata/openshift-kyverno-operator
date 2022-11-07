@@ -1,0 +1,52 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: openshiftkyvernooperators.operator.nirmata.io
+spec:
+  group: operator.nirmata.io
+  names:
+    kind: OpenshiftKyvernoOperator
+    listKind: OpenshiftKyvernoOperatorList
+    plural: openshiftkyvernooperators
+    singular: openshiftkyvernooperator
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: OpenshiftKyvernoOperator is the Schema for the openshiftkyvernooperators API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Spec defines the desired state of OpenshiftKyvernoOperator
+            type: object
+            x-kubernetes-preserve-unknown-fields: true
+            properties:
+              antiAffinity:
+                description: Pod antiAffinities toggle. Enabled by default but can be disabled if you want to schedule pods to the same node.
+                type: object
+                properties:
+                  enable:
+                    description: boolean value true or false.
+                    type: boolean
+          status:
+            description: Status defines the observed state of OpenshiftKyvernoOperator
+            type: object
+            x-kubernetes-preserve-unknown-fields: true
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

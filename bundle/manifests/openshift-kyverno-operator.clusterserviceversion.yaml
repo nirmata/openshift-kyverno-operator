@@ -1,0 +1,660 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "operator.nirmata.io/v1",
+          "kind": "OpenshiftKyvernoOperator",
+          "metadata": {
+            "name": "openshiftkyvernooperator-sample"
+          },
+          "spec": {
+            "antiAffinity": {
+              "enable": true
+            },
+            "config": {
+              "annotations": {},
+              "excludeGroupRole": null,
+              "excludeUsername": null,
+              "existingConfig": "",
+              "generateSuccessEvents": false,
+              "metricsConfig": {
+                "annotations": {},
+                "namespaces": {
+                  "exclude": [],
+                  "include": []
+                }
+              },
+              "resourceFilters": [
+                "[Event,*,*]",
+                "[*,kube-system,*]",
+                "[*,kube-public,*]",
+                "[*,kube-node-lease,*]",
+                "[Node,*,*]",
+                "[APIService,*,*]",
+                "[TokenReview,*,*]",
+                "[SubjectAccessReview,*,*]",
+                "[SelfSubjectAccessReview,*,*]",
+                "[Binding,*,*]",
+                "[ReplicaSet,*,*]",
+                "[AdmissionReport,*,*]",
+                "[ClusterAdmissionReport,*,*]",
+                "[BackgroundScanReport,*,*]",
+                "[ClusterBackgroundScanReport,*,*]",
+                "[ClusterRole,*,{{ template \"kyverno.fullname\" . }}:*]",
+                "[ClusterRoleBinding,*,{{ template \"kyverno.fullname\" . }}:*]",
+                "[ServiceAccount,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.serviceAccountName\" . }}]",
+                "[ConfigMap,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.configMapName\" . }}]",
+                "[ConfigMap,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.metricsConfigMapName\" . }}]",
+                "[Deployment,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.fullname\" . }}]",
+                "[Job,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.fullname\" . }}-hook-pre-delete]",
+                "[NetworkPolicy,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.fullname\" . }}]",
+                "[PodDisruptionBudget,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.fullname\" . }}]",
+                "[Role,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.fullname\" . }}:*]",
+                "[RoleBinding,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.fullname\" . }}:*]",
+                "[Secret,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.serviceName\" . }}.{{ template \"kyverno.namespace\" . }}.svc.*]",
+                "[Service,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.serviceName\" . }}]",
+                "[Service,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.serviceName\" . }}-metrics]",
+                "[ServiceMonitor,{{ if .Values.serviceMonitor.namespace }}{{ .Values.serviceMonitor.namespace }}{{ else }}{{ template \"kyverno.namespace\" . }}{{ end }},{{ template \"kyverno.serviceName\" . }}-service-monitor]",
+                "[Pod,{{ include \"kyverno.namespace\" . }},{{ template \"kyverno.fullname\" . }}-test]"
+              ],
+              "webhooks": null
+            },
+            "createSelfSignedCert": false,
+            "customLabels": {},
+            "dnsPolicy": "ClusterFirst",
+            "envVars": {},
+            "envVarsInit": {},
+            "excludeKyvernoNamespace": true,
+            "extraArgs": [
+              "--autogenInternals=true",
+              "--loggingFormat=text"
+            ],
+            "extraContainers": [],
+            "extraEnvVars": null,
+            "extraInitContainers": [],
+            "fullnameOverride": "kyverno",
+            "generatecontrollerExtraResources": [],
+            "hostNetwork": false,
+            "image": {
+              "pullPolicy": "IfNotPresent",
+              "pullSecrets": {
+                "create": false,
+                "name": "image-pull-secret",
+                "password": null,
+                "registry": "ghcr.io",
+                "username": null
+              },
+              "repository": "ghcr.io/kyverno/kyverno",
+              "tag": "latest"
+            },
+            "imagePullSecret": {
+              "create": true,
+              "name": "kyverno-operator-image-pull-secret",
+              "password": "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",
+              "registry": "ghcr.io",
+              "username": "pns-nirmata"
+            },
+            "imagePullSecrets": {},
+            "initContainer": {
+              "extraArgs": [
+                "--loggingFormat=text"
+              ]
+            },
+            "initImage": {
+              "pullPolicy": null,
+              "repository": "ghcr.io/kyverno/kyvernopre",
+              "tag": "latest"
+            },
+            "initResources": {
+              "limits": {
+                "cpu": "100m",
+                "memory": "256Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "64Mi"
+              }
+            },
+            "installCRDs": true,
+            "kyvernoOperatorImage": "ghcr.io/pns-nirmata/nirmata-kyverno-monitor",
+            "kyvernoOperatorImageTag": "0.1.0",
+            "livenessProbe": {
+              "failureThreshold": 2,
+              "httpGet": {
+                "path": "/health/liveness",
+                "port": 9443,
+                "scheme": "HTTPS"
+              },
+              "initialDelaySeconds": 15,
+              "periodSeconds": 30,
+              "successThreshold": 1,
+              "timeoutSeconds": 5
+            },
+            "metricsService": {
+              "annotations": {},
+              "create": true,
+              "nodePort": null,
+              "port": 8000,
+              "type": "ClusterIP"
+            },
+            "nameOverride": "kyverno",
+            "namespace": null,
+            "networkPolicy": {
+              "enabled": false,
+              "ingressFrom": []
+            },
+            "nodeAffinity": {},
+            "nodeSelector": {},
+            "podAffinity": {},
+            "podAnnotations": {},
+            "podAntiAffinity": {
+              "preferredDuringSchedulingIgnoredDuringExecution": [
+                {
+                  "podAffinityTerm": {
+                    "labelSelector": {
+                      "matchExpressions": [
+                        {
+                          "key": "app.kubernetes.io/name",
+                          "operator": "In",
+                          "values": [
+                            "kyverno"
+                          ]
+                        }
+                      ]
+                    },
+                    "topologyKey": "kubernetes.io/hostname"
+                  },
+                  "weight": 1
+                }
+              ]
+            },
+            "podDisruptionBudget": {
+              "maxUnavailable": null,
+              "minAvailable": 1
+            },
+            "podLabels": {},
+            "podSecurityContext": {},
+            "priorityClassName": "",
+            "rbac": {
+              "create": true,
+              "serviceAccount": {
+                "annotations": {},
+                "create": true,
+                "name": null
+              }
+            },
+            "readinessProbe": {
+              "failureThreshold": 6,
+              "httpGet": {
+                "path": "/health/readiness",
+                "port": 9443,
+                "scheme": "HTTPS"
+              },
+              "initialDelaySeconds": 5,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "timeoutSeconds": 5
+            },
+            "replicaCount": null,
+            "resourceFiltersExcludeNamespaces": [],
+            "resources": {
+              "limits": {
+                "memory": "384Mi"
+              },
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "privileged": false,
+              "readOnlyRootFilesystem": true,
+              "runAsNonRoot": true,
+              "seccompProfile": {
+                "type": "RuntimeDefault"
+              }
+            },
+            "service": {
+              "annotations": {},
+              "nodePort": null,
+              "port": 443,
+              "type": "ClusterIP"
+            },
+            "serviceMonitor": {
+              "additionalLabels": null,
+              "enabled": false,
+              "interval": "30s",
+              "namespace": null,
+              "scrapeTimeout": "25s",
+              "secure": false,
+              "tlsConfig": {}
+            },
+            "startupProbe": {
+              "failureThreshold": 12,
+              "httpGet": {
+                "path": "/health/liveness",
+                "port": 9443,
+                "scheme": "HTTPS"
+              },
+              "initialDelaySeconds": 30,
+              "periodSeconds": 10
+            },
+            "testImage": {
+              "pullPolicy": null,
+              "registry": null,
+              "repository": "busybox",
+              "tag": null
+            },
+            "testResources": {
+              "limits": {
+                "cpu": "100m",
+                "memory": "256Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "64Mi"
+              }
+            },
+            "testSecurityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "privileged": false,
+              "readOnlyRootFilesystem": true,
+              "runAsGroup": 65534,
+              "runAsNonRoot": true,
+              "runAsUser": 65534,
+              "seccompProfile": {
+                "type": "RuntimeDefault"
+              }
+            },
+            "tolerations": [],
+            "topologySpreadConstraints": [],
+            "tufRootMountPath": "/.sigstore",
+            "updateStrategy": {
+              "rollingUpdate": {
+                "maxSurge": 1,
+                "maxUnavailable": "40%"
+              },
+              "type": "RollingUpdate"
+            },
+            "validKyvernoImages": "ghcr.io/nirmata/kyverno:xxx|ghcr.io/nirmata/kyverno/kyverno:xxx|ghcr.io/kyverno/kyverno:xxx",
+            "webhookEnabled": false,
+            "webhooksCleanup": {
+              "enable": false,
+              "image": "bitnami/kubectl:latest"
+            }
+          }
+        }
+      ]
+    capabilities: Full Lifecycle
+    operators.operatorframework.io/builder: operator-sdk-v1.25.0
+    operators.operatorframework.io/project_layout: helm.sdk.operatorframework.io/v1
+  name: openshift-kyverno-operator.v0.0.1
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - kind: OpenshiftKyvernoOperator
+      name: openshiftkyvernooperators.operator.nirmata.io
+      version: v1
+  description: Openshift kyverno operator for "Nirmata Kyverno Enterprise" and "Kyverno
+    Operator
+  displayName: OpenShft Kyverno Operator
+  icon:
+  - base64data: ""
+    mediatype: ""
+  install:
+    spec:
+      clusterPermissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - namespaces
+          verbs:
+          - get
+        - apiGroups:
+          - ""
+          resources:
+          - secrets
+          - serviceaccounts
+          verbs:
+          - '*'
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+        - apiGroups:
+          - operator.nirmata.io
+          resources:
+          - openshiftkyvernooperators
+          - openshiftkyvernooperators/status
+          - openshiftkyvernooperators/finalizers
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - pods
+          - services
+          - services/finalizers
+          - endpoints
+          - persistentvolumeclaims
+          - events
+          - configmaps
+          - secrets
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apps
+          resources:
+          - deployments
+          - daemonsets
+          - replicasets
+          - statefulsets
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - apiextensions.k8s.io
+          resources:
+          - customresourcedefinitions
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - rolebindings
+          - roles
+          verbs:
+          - '*'
+        - apiGroups:
+          - admissionregistration.k8s.io
+          resources:
+          - mutatingwebhookconfigurations
+          - validatingwebhookconfigurations
+          verbs:
+          - '*'
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - clusterrolebindings
+          - clusterroles
+          verbs:
+          - '*'
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - admissionregistration.k8s.io
+          resources:
+          - validatingwebhookconfigurations
+          verbs:
+          - get
+          - watch
+          - list
+        - apiGroups:
+          - ""
+          resources:
+          - services/status
+          verbs:
+          - get
+        - apiGroups:
+          - security.nirmata.io
+          resources:
+          - kyvernooperators
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - security.nirmata.io
+          resources:
+          - kyvernooperators/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - security.nirmata.io
+          resources:
+          - kyvernooperators/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - authentication.k8s.io
+          resources:
+          - tokenreviews
+          verbs:
+          - create
+        - apiGroups:
+          - authorization.k8s.io
+          resources:
+          - subjectaccessreviews
+          verbs:
+          - create
+        - apiGroups:
+          - authentication.k8s.io
+          resources:
+          - tokenreviews
+          verbs:
+          - create
+        - apiGroups:
+          - authorization.k8s.io
+          resources:
+          - subjectaccessreviews
+          verbs:
+          - create
+        serviceAccountName: openshift-kyverno-operator-controller-manager
+      deployments:
+      - label:
+          app.kubernetes.io/component: manager
+          app.kubernetes.io/created-by: openshift-kyverno-operator
+          app.kubernetes.io/instance: controller-manager
+          app.kubernetes.io/managed-by: kustomize
+          app.kubernetes.io/name: deployment
+          app.kubernetes.io/part-of: openshift-kyverno-operator
+          control-plane: controller-manager
+        name: openshift-kyverno-operator-controller-manager
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              control-plane: controller-manager
+          strategy: {}
+          template:
+            metadata:
+              annotations:
+                kubectl.kubernetes.io/default-container: manager
+              labels:
+                control-plane: controller-manager
+            spec:
+              affinity:
+                nodeAffinity:
+                  requiredDuringSchedulingIgnoredDuringExecution:
+                    nodeSelectorTerms:
+                    - matchExpressions:
+                      - key: kubernetes.io/arch
+                        operator: In
+                        values:
+                        - amd64
+                        - arm64
+                        - ppc64le
+                        - s390x
+                      - key: kubernetes.io/os
+                        operator: In
+                        values:
+                        - linux
+              containers:
+              - args:
+                - --secure-listen-address=0.0.0.0:8443
+                - --upstream=http://127.0.0.1:8080/
+                - --logtostderr=true
+                - --v=0
+                image: gcr.io/kubebuilder/kube-rbac-proxy:v0.13.0
+                name: kube-rbac-proxy
+                ports:
+                - containerPort: 8443
+                  name: https
+                  protocol: TCP
+                resources:
+                  limits:
+                    cpu: 500m
+                    memory: 128Mi
+                  requests:
+                    cpu: 5m
+                    memory: 64Mi
+                securityContext:
+                  allowPrivilegeEscalation: false
+                  capabilities:
+                    drop:
+                    - ALL
+              - args:
+                - --health-probe-bind-address=:8081
+                - --metrics-bind-address=127.0.0.1:8080
+                - --leader-elect
+                - --leader-election-id=openshift-kyverno-operator
+                image: index.docker.io/mrutyunjayanirmata21/test-operator:v0.0.1
+                livenessProbe:
+                  httpGet:
+                    path: /healthz
+                    port: 8081
+                  initialDelaySeconds: 15
+                  periodSeconds: 20
+                name: manager
+                readinessProbe:
+                  httpGet:
+                    path: /readyz
+                    port: 8081
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                resources:
+                  limits:
+                    cpu: 500m
+                    memory: 128Mi
+                  requests:
+                    cpu: 10m
+                    memory: 64Mi
+                securityContext:
+                  allowPrivilegeEscalation: false
+                  capabilities:
+                    drop:
+                    - ALL
+              securityContext:
+                runAsNonRoot: true
+              serviceAccountName: openshift-kyverno-operator-controller-manager
+              terminationGracePeriodSeconds: 10
+      permissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+          - patch
+        serviceAccountName: openshift-kyverno-operator-controller-manager
+    strategy: deployment
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - kyverno
+  - operator
+  - policy
+  - monitor
+  - report
+  - nirmata
+  links:
+  - name: Openshift Kyverno Operator
+    url: https://kyverno.io
+  maintainers:
+  - email: support@nirmata.com
+    name: Nirmata
+  maturity: alpha
+  provider:
+    name: Nirmata
+    url: https://nirmata.com
+  version: 0.0.1
