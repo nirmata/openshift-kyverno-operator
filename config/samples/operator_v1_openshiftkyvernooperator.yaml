@@ -237,10 +237,10 @@ spec:
   imagePullSecret:
     create: true
     name: kyverno-operator-image-pull-secret
-    password: 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
+    password: null
     registry: ghcr.io
-    username: pns-nirmata
-  kyvernoOperatorImage: ghcr.io/pns-nirmata/nirmata-kyverno-monitor
+    username: null
+  kyvernoOperatorImage: ghcr.io/nirmata/nirmata-kyverno-monitor
   kyvernoOperatorImageTag: 0.1.0
   validKyvernoImages: ghcr.io/nirmata/kyverno:xxx|ghcr.io/nirmata/kyverno/kyverno:xxx|ghcr.io/kyverno/kyverno:xxx
   webhookEnabled: false
