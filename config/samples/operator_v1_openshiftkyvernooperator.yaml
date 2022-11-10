@@ -83,16 +83,16 @@ spec:
       password: null
       registry: ghcr.io
       username: null
-    repository: ghcr.io/kyverno/kyverno
-    tag: v1.8.1
+    repository: ghcr.io/nirmata/kyverno
+    tag: v1.8.1-n4kbuild.1
   imagePullSecrets: {}
   initContainer:
     extraArgs:
     - --loggingFormat=text
   initImage:
     pullPolicy: null
-    repository: ghcr.io/kyverno/kyvernopre
-    tag: v1.8.1
+    repository: ghcr.io/nirmata/kyvernopre
+    tag: v1.8.1-n4kbuild.1
   initResources:
     limits:
       cpu: 100m
