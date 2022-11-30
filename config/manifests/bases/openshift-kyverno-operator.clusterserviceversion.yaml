@@ -9,7 +9,8 @@ metadata:
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions: {}
-  description: Openshift kyverno operator for "Nirmata Kyverno Enterprise" and "Kyverno Operator"
+  description: Openshift kyverno operator for "Nirmata Kyverno Enterprise" and "Kyverno
+    Operator"
   displayName: OpenShft Kyverno Operator
   icon:
   - base64data: ""
