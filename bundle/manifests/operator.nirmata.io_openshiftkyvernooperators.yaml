@@ -32,6 +32,15 @@ spec:
             type: object
           spec:
             description: Spec defines the desired state of OpenshiftKyvernoOperator
+            properties:
+              antiAffinity:
+                description: Pod antiAffinities toggle. Enabled by default but can
+                  be disabled if you want to schedule pods to the same node.
+                properties:
+                  enable:
+                    description: boolean value true or false.
+                    type: boolean
+                type: object
             type: object
             x-kubernetes-preserve-unknown-fields: true
           status:
