@@ -78,7 +78,7 @@ spec:
   image:
     pullPolicy: IfNotPresent
     pullSecrets:
-      create: false
+      create: true
       name: image-pull-secret
       password: null
       registry: ghcr.io

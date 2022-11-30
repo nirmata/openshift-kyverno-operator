@@ -39,8 +39,15 @@ operator-sdk run bundle ghcr.io/nirmata/openshift-kyverno-bundle:v0.0.1
 
 ### Apply CR
 
+The container images used in the internal Kyverno and Kyverno Operator pods are private. Get necessary user/password from Nirmata, and set these in the file `config/samples/operator_v1_openshiftkyvernooperator.yaml ` under the locations:
+- image.pullSecrets.username, image.pullSecrets.password
+- imagePullSecret.username, imagePullSecret.password
+
+Then create the OpenshiftKyvernoOperator custom resource by running
+
 ```shell
 kubectl apply -k config/samples
 ```
+The Kyverno and Kyverno-Operator pods should show as running.
 
 https://sdk.operatorframework.io/docs/building-operators/helm/quickstart/ here is the complete document for olm installation, deployment and cleanup.
