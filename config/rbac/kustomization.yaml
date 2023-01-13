@@ -16,3 +16,9 @@ resources:
 - auth_proxy_role.yaml
 - auth_proxy_role_binding.yaml
 - auth_proxy_client_clusterrole.yaml
+- aggregateroles.yaml
+- clusterrole.yaml
+- clusterrolebinding.yaml
+- enterprisekyverno_editor_role.yaml
+- enterprisekyverno_viewer_role.yaml
+- rbac.yaml

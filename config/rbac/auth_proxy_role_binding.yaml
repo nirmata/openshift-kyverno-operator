@@ -5,8 +5,8 @@ metadata:
     app.kubernetes.io/name: clusterrolebinding
     app.kubernetes.io/instance: proxy-rolebinding
     app.kubernetes.io/component: kube-rbac-proxy
-    app.kubernetes.io/created-by: openshift-kyverno-operator
-    app.kubernetes.io/part-of: openshift-kyverno-operator
+    app.kubernetes.io/created-by: enterprise-kyverno
+    app.kubernetes.io/part-of: enterprise-kyverno
     app.kubernetes.io/managed-by: kustomize
   name: proxy-rolebinding
 roleRef:

@@ -198,8 +198,6 @@ spec:
         control-plane: controller-manager
         nirmata.io/container.type: system
     spec:
-      imagePullSecrets: 
-      - name: {{ .Values.imagePullSecret.name }}
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:

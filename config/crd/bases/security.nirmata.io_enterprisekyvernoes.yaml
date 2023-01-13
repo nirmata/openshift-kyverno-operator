@@ -1,22 +1,21 @@
+---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  creationTimestamp: null
-  name: openshiftkyvernooperators.operator.nirmata.io
+  name: enterprisekyvernoes.security.nirmata.io
 spec:
-  group: operator.nirmata.io
+  group: security.nirmata.io
   names:
-    kind: OpenshiftKyvernoOperator
-    listKind: OpenshiftKyvernoOperatorList
-    plural: openshiftkyvernooperators
-    singular: openshiftkyvernooperator
+    kind: EnterpriseKyverno
+    listKind: EnterpriseKyvernoList
+    plural: enterprisekyvernoes
+    singular: enterprisekyverno
   scope: Namespaced
   versions:
-  - name: v1
+  - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: OpenshiftKyvernoOperator is the Schema for the openshiftkyvernooperators
-          API
+        description: EnterpriseKyverno is the Schema for the enterprisekyvernoes API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -31,20 +30,11 @@ spec:
           metadata:
             type: object
           spec:
-            description: Spec defines the desired state of OpenshiftKyvernoOperator
-            properties:
-              antiAffinity:
-                description: Pod antiAffinities toggle. Enabled by default but can
-                  be disabled if you want to schedule pods to the same node.
-                properties:
-                  enable:
-                    description: boolean value true or false.
-                    type: boolean
-                type: object
+            description: Spec defines the desired state of EnterpriseKyverno
             type: object
             x-kubernetes-preserve-unknown-fields: true
           status:
-            description: Status defines the observed state of OpenshiftKyvernoOperator
+            description: Status defines the observed state of EnterpriseKyverno
             type: object
             x-kubernetes-preserve-unknown-fields: true
         type: object
@@ -52,9 +42,3 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: null
-  storedVersions: null
