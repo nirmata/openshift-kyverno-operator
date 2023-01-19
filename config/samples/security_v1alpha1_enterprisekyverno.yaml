@@ -240,7 +240,7 @@ spec:
       maxSurge: 1
       maxUnavailable: 40%
     type: RollingUpdate
-  validKyvernoImages: ghcr.io/nirmata/kyverno:xxx|ghcr.io/nirmata/kyverno/kyverno:xxx|ghcr.io/kyverno/kyverno:xxx
+  validKyvernoImages: ghcr.io/nirmata/kyverno@sha256:3b7bdd7ad2aeddb9b5ab323bb166863cb00c0977c9eede200808b5832c4a2069
   webhookEnabled: false
   webhooksCleanup:
     enable: false
